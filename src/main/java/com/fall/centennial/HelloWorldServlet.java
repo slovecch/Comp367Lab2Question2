@@ -1,3 +1,6 @@
+package com.fall.centennial;
+
+
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,6 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 public class HelloWorldServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {
-        response.getWriter().print("Hello, World!");
+        response.getWriter().print("Good afternoon, Stefan Lovecchio, welcome to COMP 367");
     }
 }
