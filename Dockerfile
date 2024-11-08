@@ -1,9 +1,5 @@
-FROM openjdk:11-jre-slim
+FROM tomcat:9.0-jdk11
 
-WORKDIR /app
-
-COPY target/COMP367LAB2QUESTION2.war /app/COMP367LAB2QUESTION2.war
+COPY target/Comp367Lab2Question2-0.0.1-SNAPSHOT.war /usr/local/tomcat/webapps/Comp367Lab2Question2.war
 
 EXPOSE 8080
-
-ENTRYPOINT ["java", "-jar", "/app/COMP367LAB2QUESTION2.war"]
