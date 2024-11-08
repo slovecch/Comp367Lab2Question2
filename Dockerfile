@@ -1,0 +1,9 @@
+FROM openjdk:11-jre-slim
+
+WORKDIR /app
+
+COPY target/COMP367LAB2QUESTION2.war /app/COMP367LAB2QUESTION2.war
+
+EXPOSE 8080
+
+ENTRYPOINT ["java", "-jar", "/app/COMP367LAB2QUESTION2.war"]

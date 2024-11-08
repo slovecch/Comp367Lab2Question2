@@ -1,6 +1,11 @@
 pipeline {
     agent any
 
+    environment {
+        DOCKER_HUB_REPO = 'slovecch/comp367webapp'
+        DOCKER_HUB_CREDENTIALS = '102328bc-d2ff-4ef8-86be-0ad398bb3c14'
+    }
+
     stages {
         stage('Checkout') {
             steps {
@@ -36,11 +41,31 @@ pipeline {
                 archiveArtifacts artifacts: 'target/*.war', allowEmptyArchive: true
             }
         }
+
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    def imageName = "${DOCKER_HUB_REPO}:${env.BUILD_NUMBER}"
+                    sh "docker build -t ${imageName} ."
+                }
+            }
+        }
+
+        stage('Push Docker Image') {
+            steps {
+                script {
+                    def imagineName = "${DOCKER_HUB_REPO}:${env.BUILD_NUMBER}"
+                    docker.withRegistry('', DOCKER_HUB_CREDENTIALS) {
+                        sh "docker push ${imagineName}"
+                    }
+                }
+            }
+        }
     }
 
     post {
         success {
-            echo 'Build successful!'
+            echo 'Build, Docker image creation and push to Docker Hub successful!'
         }
         failure {
             echo 'Build failed!'
